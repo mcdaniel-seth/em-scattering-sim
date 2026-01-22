@@ -1,0 +1,15 @@
+# MATLAB autosave files
+*.asv
+*.m~
+*.autosave
+
+# Compiled or generated files
+*.mex*
+*.p
+slprj/
+
+
+# OS junk
+.DS_Store
+Thumbs.db
+
