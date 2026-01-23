@@ -2,10 +2,10 @@
 
 
 function Esca = ForwardScatteringEnergy(k0,r,S0,Einc)
-    % k0 -> wavenumber
-    % r -> veiwing distance
-    % S0 -> Constant for now
-    % Einc -> Entering Energy (vector?)
+    % k0 = wavenumber
+    % r = veiwing distance
+    % S0 = Constant for now
+    % Einc = Incident Feild amplitude
     
     Esca = (exp(1i*k0.*r) ./ (k0.*r)) .* (S0 .* Einc(:));
 
