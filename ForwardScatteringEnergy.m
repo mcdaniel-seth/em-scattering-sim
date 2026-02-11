@@ -1,5 +1,5 @@
 % Forward Scattering Energy
-
+ 
 
 function Esca = ForwardScatteringEnergy(k0,r,S0,Einc)
     % k0 = wavenumber
