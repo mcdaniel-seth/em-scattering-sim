@@ -1,31 +1,42 @@
 
-function [psi, xi, dpsi, dxi] = riccatiBessel(n, x)
+function [psi, xi, dpsi, dxi] = riccatiBessel(n, z)
 
     % Function returns the bessel functions needed for the coeff An and Bn
-    %
+    %   (used in mieCoeff.m)
     % n = which iteration (Bohren and Huffman use Nmax = x+4*x^(1/3) + 2)
-    % x = either k0*R or m*k0*R
+    % z = either k0*R or m*k0*R
+    % illiad - paper library
 
-    syms z
+    n_sphere = n +.5;
 
-    jn = sqrt(pi./(2*z)) .* besselj(n+0.5,z);       % Convert the bessel func to spherical (Matzler pg.3)
+    A = sqrt(pi./(2*z)); % (first part of RicBessel)  
     
-    yn = sqrt(pi./(2*z)) .* bessely(n+0.5,z);
+    Jn = besselj(n_sphere,z); 
+    Yn = bessely(n_sphere,z);
+
+    jn = A.* Jn;       % Convert the bessel func to spherical (Matzler (4.9))  
+    yn = A .* Yn;
+    hn = jn + 1i*yn;                               
+
+    psi = z .* jn;                               
+    xi = z .*hn;
     
-    hn = jn + 1i*yn;                                % hankel?
+    dA = -0.5 .* A ./z;
 
-    psi_sym = z * jn;                               % using syms to find derivative (Matzler does recursion?)
-
-    xi_sym = z*hn;
-
-    dpsi_sym = diff(psi_sym,z);
-
-    dxi_sym = diff(xi_sym, z);
+    dJn = 0.5 .* (besselj(n_sphere-1,z) - besselj(n_sphere+1,z));
+    dYn = 0.5 .* (bessely(n_sphere-1,z) - bessely(n_sphere+1,z));
     
-    psi = double(subs(psi_sym, z, x));              
-    xi = double(subs(xi_sym, z, x));
-    dpsi = double(subs(dpsi_sym, z, x));
-    dxi = double(subs(dxi_sym, z, x));
+    % d A*Jn = dA*Jn + A*dJn
+
+    djn = dA .* Jn + A .* dJn;              % product rule
+    dyn = dA .* Yn + A .* dYn;
+
+    dhn = djn + 1i*dyn;  % (Matzler (4.10)) 
+
+
+    
+    dpsi = jn + z .* djn;                           % product rule
+    dxi = hn + z .* dhn;
 
 
 end
