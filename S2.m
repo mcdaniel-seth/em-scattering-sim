@@ -1,4 +1,4 @@
-function S= S1(N, theta, m , x)
+function S= S2(N, theta, m , x)
     % N = # of itterations
     % theta = angle of interest
     % m = refractive index
@@ -13,7 +13,7 @@ function S= S1(N, theta, m , x)
         [an, bn] = mieCoeff(n, m, x);
 
 
-        S = S + ((2*n + 1) / (n*(n + 1))) .* (an.*pi_n + bn.*tau_n);
+        S = S + ((2*n + 1) / (n*(n + 1))) .* (an.*tau_n + bn.*pi_n);
     end
     
 
