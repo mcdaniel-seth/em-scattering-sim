@@ -5,9 +5,13 @@ function Einc = planewave(k0, r)
 
 % Einc = E0*p*exp(i*k*r)
 % in our case, not wanting E0 
-                                        % p is polarization, polarized in x
-                                        % only?
+                                        
+    Einc = exp(1i * k0 .* r);
+    
 
-    Einc = [exp(1i * k0 * r) ; zeros(size(r)) ; zeros(size(r)) ];
+    % For now we only are wanting a single row matrix so VVV unneeded
+
+    % EincVector = [ex ; zeros(size(ex)) ; zeros(size(ex)) ];
+    % Einc = EincVector(1,:);
 
 end

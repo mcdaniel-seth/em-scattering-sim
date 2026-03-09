@@ -2,19 +2,14 @@
  
 
 function Esca = ForwardScatteringEnergy(k0,r,S0,Einc)
-    % k0 = wavenumber
-    % r = veiwing distance
-    % S0 = Constant for now
-    % Einc = Incident Feild amplitude
+    k0 = k0(:).';       %wavenumber    (1 x N)        % (:) forces single column
+    r = r;              %veiwing distance      % .' turns to row
+    S0 = S0(:).';       %Constant for now      % this makes everything a single row matrix for el by el operators
+    Einc = Einc(:).';   %Incident Feild
     
-    Esca = (exp(1i*k0.*r) ./ (k0.*r)) .* (S0 .* Einc(:));
+    %disp([size(k0); size(r); size(S0); size(Einc)])
 
-    figure;
-    plot(r, real(Esca).') % .' transposes Esca
-    xlabel('r');
-    ylabel('Eenergy');
-    title('Forward Scattering Energy vs distance');
-    grid on;
 
-   
+    Esca = (exp(1i*k0.*r) ./ (k0.*r)) .* (S0 .* Einc);
+
 end
