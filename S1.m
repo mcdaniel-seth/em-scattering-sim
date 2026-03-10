@@ -1,4 +1,4 @@
-function S= S1(N, theta, m , x)
+function S= S1(theta, m , x)
 % N = # of itterations
 % theta = angle of interest
 % m = refractive index
