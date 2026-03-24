@@ -5,9 +5,16 @@ function Einc = planewave(k0, r)
 
 % Einc = E0*p*exp(i*k*r)
 % in our case, not wanting E0 
-                                        
-    Einc = exp(1i * k0 .* r);
+                                         
+    %Einc = exp(1i * k0 .* r);
+
+    %Einc = (1./sin(k0)).*exp(1i * k0 .* r);
+    Einc = (sin(k0)).*exp(1i * k0 .* r);
     
+    Einc = Einc(:).'; % row vector
+
+
+
 
     % For now we only are wanting a single row matrix so VVV unneeded
 

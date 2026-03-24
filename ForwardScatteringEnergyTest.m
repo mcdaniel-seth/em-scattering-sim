@@ -68,7 +68,7 @@ figure;
 
 %% Fwd Scatter using S1 - FIXED DIST
 
-clear; 
+%clear; 
 
 L = 0.02;                 % reciever dist
 r = 5;                  % dist from particle to receiver
@@ -135,7 +135,7 @@ R = 1e-6;
 m = 1.8;
 x = k0*R;
 
-N =((0.0001*(0.01*0.01*0.02))/(pi*R^2));
+N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); % Num of particles
 
 S = S1(0,m,x);              
 
@@ -167,5 +167,47 @@ plot(freq/1e6, abs(Esca_sum)-abs(Esca1)); % plotting in MHz
 xlabel('frequency (in Mhz)');
 ylabel('Energy');
 title('Diff Multiple - Single');
+
+grid on;
+
+%% DIFF Particle Sizes
+
+clear; 
+
+L = 0.02;                 % reciever dist
+freq = linspace(1e6, 1e9, 1000); 
+k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
+m = 1.8;
+
+
+R = 1e-9; % CHANGE ME (radius of particle in m)
+
+
+x = k0*R;
+
+%N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); % Num of particles
+                                         % R = 1e-6 -> N=63
+                                         % R = 1e-5 -> N=.67
+N =((0.0001*(0.01*0.01*0.02))/(pi*(1e-6)^2)); % so using this hardcoded R
+
+S = S1(0,m,x);              
+
+
+Esca_sum = zeros(size(freq));
+for n = 1:N
+
+    particleR = rand()*L;
+
+    Einc = planewave(k0, particleR); 
+    Esca = ForwardScatteringEnergy(k0, particleR, S, Einc);
+    
+    Esca_sum = Esca_sum + Esca;
+end
+figure;
+
+plot(freq/1e6, abs(Esca_sum)); % plotting in MHz
+xlabel('frequency (in Mhz)');
+ylabel('Energy');
+title(['R =  ',num2str(R)]);
 
 grid on;
