@@ -34,7 +34,7 @@ m = 1.8;
 
 [An, Bn] = mieCoeff(10,m,x)
 
-%% Fwd Scatter using S1 - FIXED WAVENUM
+%% Single Particle - FIXED WAVENUM
 
 clear; 
 
@@ -59,14 +59,14 @@ Esca = ForwardScatteringEnergy(k0, r, S, Einc);
 figure;
 
     
-    plot(r, Esca) 
+    plot(r, abs(Esca)) 
     xlabel('r');
     ylabel('Energy');
     title('Forward Scattering Energy vs distance');
     grid on;
 
 
-%% Fwd Scatter using S1 - FIXED DIST
+%% Single Particle - FIXED DIST
 
 %clear; 
 
@@ -170,7 +170,7 @@ title('Diff Multiple - Single');
 
 grid on;
 
-%% DIFF Particle Sizes
+%%  Change particle sizes Here
 
 clear; 
 
@@ -180,7 +180,7 @@ k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
 m = 1.8;
 
 
-R = 1e-9; % CHANGE ME (radius of particle in m)
+R = 5e-6; % PARTICLE SIZE (radius of particle in m)
 
 
 x = k0*R;
@@ -188,7 +188,7 @@ x = k0*R;
 %N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); % Num of particles
                                          % R = 1e-6 -> N=63
                                          % R = 1e-5 -> N=.67
-N =((0.0001*(0.01*0.01*0.02))/(pi*(1e-6)^2)); % so using this hardcoded R
+N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); % so using this hardcoded R 
 
 S = S1(0,m,x);              
 
@@ -203,6 +203,47 @@ for n = 1:N
     
     Esca_sum = Esca_sum + Esca;
 end
+figure;
+
+plot(freq/1e6, abs(Esca_sum)); % plotting in MHz
+xlabel('frequency (in Mhz)');
+ylabel('Energy');
+title(['R =  ',num2str(R)]);
+
+grid on;
+
+%% USING LAB DATA 
+
+clear; 
+
+L = 0.02;                 % reciever dist
+
+[freq , Einc]= readfromcsv('nf.csv');
+
+Einc_row = Einc(50,:); % grabbing RANDOM ROW, why so many rows???
+
+k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
+
+m = 1.8;
+R = 5e-6; % Curve flattens at 8e-6 !!
+x = k0*R;
+N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); 
+
+S = S1(0,m,x);              
+
+
+Esca_sum = zeros(size(freq));
+for n = 1:N
+
+    particleR = rand()*L;
+
+    Einc = Einc_row; % use lab data
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S, Einc);  
+    Esca_sum = Esca_sum + Esca;
+end
+
+
 figure;
 
 plot(freq/1e6, abs(Esca_sum)); % plotting in MHz
