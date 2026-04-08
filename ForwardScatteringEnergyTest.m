@@ -220,12 +220,12 @@ L = 0.02;                 % reciever dist
 
 [freq , Einc]= readfromcsv('nf.csv');
 
-Einc_row = Einc(50,:); % grabbing RANDOM ROW, why so many rows???
+Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
 
 k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
 
 m = 1.8;
-R = 5e-6; % Curve flattens at 8e-6 !!
+R = 7.98e-6; % Curve flattens at 8e-6 !!
 x = k0*R;
 N =((0.0001*(0.01*0.01*0.02))/(pi*R^2)); 
 
@@ -250,5 +250,130 @@ plot(freq/1e6, abs(Esca_sum)); % plotting in MHz
 xlabel('frequency (in Mhz)');
 ylabel('Energy');
 title(['R =  ',num2str(R)]);
+hold on;
+grid on;
 
+%% Multiple Concentrations (same R)
+% Substantial randomness in amplitude due to the rand() placement of the
+% particles (shown by making all 3 N values the same)
+clear; 
+
+L = 0.02;                 % reciever dist
+
+[freq , Einc]= readfromcsv('0M.csv');
+
+Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
+
+k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
+
+m = 1.8;
+R = 5e-6; % Curve flattens at 8e-6 !!
+x = k0*R;
+
+N =((0.01*0.01*0.02)/(pi*R^2)); 
+N1 = N*(0.001); N2 = N*(0.0001); N3 = N*(0.00001);
+
+S = S1(0,m,x);    
+
+Einc = Einc_row; % use lab data
+
+figure;
+hold on;
+
+Esca_sum1 = zeros(size(freq)); Esca_sum2 = zeros(size(freq)); Esca_sum3 = zeros(size(freq));
+for n = 1:N1
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S, Einc);  
+    Esca_sum1 = Esca_sum1 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum1), 'DisplayName', (['N1 =  ',num2str(N1)]));
+
+for n = 1:N2
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S, Einc);  
+    Esca_sum2 = Esca_sum2 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum2), 'DisplayName', (['N2 =  ',num2str(N2)]));
+for n = 1:N3
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S, Einc);  
+    Esca_sum3 = Esca_sum3 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum3), 'DisplayName', (['N3 =  ',num2str(N3)]));
+
+
+
+xlabel('frequency (in Mhz)');
+ylabel('Energy');
+title(['Scattered Energy || R =  ',num2str(R)]);
+legend; 
+grid on;
+
+%% Multiple Particle Sizes (same N)
+% Substantial randomness in amplitude due to the rand() placement of the
+% particles (shown by making all 3 R values the same)
+clear; 
+
+L = 0.02;                 % reciever dist
+[freq , Einc]= readfromcsv('0M.csv');
+Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
+k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
+m = 1.8;
+%N =((0.01*0.01*0.02)/(pi*R^2)); 
+N = 100;                            % Hardcoded N for this
+Einc = Einc_row; % use lab data
+Esca_sum1 = zeros(size(freq)); Esca_sum2 = zeros(size(freq)); Esca_sum3 = zeros(size(freq));
+
+figure;
+hold on;
+
+R1 = 5e-6;
+x1 = k0*R1;
+S_1 = S1(0,m,x1); 
+
+for n = 1:N
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S_1, Einc);  
+    Esca_sum1 = Esca_sum1 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum1), 'DisplayName', (['R1 =  ',num2str(R1)]));
+
+R2 = 7e-6;
+x2 = k0*R2;
+S_2 = S1(0,m,x2); 
+for n = 1:N
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S_2, Einc);  
+    Esca_sum2 = Esca_sum2 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum2), 'DisplayName', (['R2 =  ',num2str(R2)]));
+
+R3 = 10e-6;
+x3 = k0*R3;
+S_3 = S1(0,m,x3); 
+for n = 1:N
+
+    particleR = rand()*L;
+
+    Esca = ForwardScatteringEnergy(k0, particleR, S_3, Einc);  
+    Esca_sum3 = Esca_sum3 + Esca;
+end
+plot(freq/1e6, abs(Esca_sum3), 'DisplayName', (['R3 =  ',num2str(R3)]));
+
+
+
+xlabel('frequency (in Mhz)');
+ylabel('Energy');
+title(['Scattered Energy || N =  ',num2str(N)]);
+legend; 
 grid on;
