@@ -5,11 +5,11 @@
 Written By: Seth McDaniel
 email seth.mcdanie@gmail.com with any questions
 
-This project is a MatLab Simulation of Forward Scattering Energy
+This project is a MatLab Simulation of **Forward Scattering Energy**
 
 The simulation comnpares:
-  1. **Multiple Particle Sizes** with constant particle count
-  2. Mutliple Particle Concentrations with constant particle radius
+  1. Multiple **Particle Sizes** with constant particle count
+  2. Mutliple **Particle Concentrations** with constant particle radius
 
 ## How to Run
 
