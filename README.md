@@ -22,7 +22,7 @@ The simulation comnpares:
    5. Adjust inputs and press Run
 
       
-## Files
+## Simulation Files
 
   ScatteringSimulation.m
     Main testing simulation file
@@ -41,7 +41,7 @@ The simulation comnpares:
       -   pin.m        (Implements pin eqn from [1])
       -   taun.m       (Implements taun eqn from [1])
       -   mieCoeff.m    (Implements mieCoeff eqn from [2])
-         -    riccatiBessel.m  (Implements Riccati Bessel Function)
+          -    riccatiBessel.m  (Implements Riccati Bessel Function)
 
   -  ForwardScatteringEnergy.m  (Overhead function that caluclates Fwd Scatter)
 
