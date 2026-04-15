@@ -8,13 +8,13 @@ email seth.mcdanie@gmail.com with any questions
 This project is a MatLab Simulation of Forward Scattering Energy
 
 The simulation comnpares:
-  1. Multiple Particle Sizes with constant particle count
+  1. **Multiple Particle Sizes** with constant particle count
   2. Mutliple Particle Concentrations with constant particle radius
 
 ## How to Run
 
    1. Open MATLAB
-   2. Open app1.mlapp
+   2. Open `app1.mlapp`
    3. Click Run
    4. Use either tab:
       - Particle Sizes for comparing radius
