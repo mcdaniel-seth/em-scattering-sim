@@ -5,10 +5,11 @@ function [freq, Einc] = readfromcsv(filename)
     freq = cell2mat(data(1,1:end-1)); % place top row into an array
 
     wavedata = data(2:end,1:end-1);  % ignore top row and last column
-    Einc = zeros(size(wavedata));
+    middlerow = ceil(size(wavedata,1)/2);
 
-    for i = 1:size(wavedata,1)
-        for j = 1:size(wavedata,2)
-            Einc(i,j) = str2num(wavedata{i,j}); 
-        end
+    Einc = zeros(1,size(wavedata,2));
+
+    
+    for j = 1:size(wavedata,2)
+        Einc(1,j) = str2num(wavedata{middlerow,j}); 
     end

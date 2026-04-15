@@ -262,7 +262,7 @@ L = 0.02;                 % reciever dist
 
 [freq , Einc]= readfromcsv('0M.csv');
 
-Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
+%Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
 
 k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
 
@@ -275,7 +275,7 @@ N1 = N*(0.001); N2 = N*(0.0001); N3 = N*(0.00001);
 
 S = S1(0,m,x);    
 
-Einc = Einc_row; % use lab data
+%Einc = Einc_row; % use lab data
 
 figure;
 hold on;
@@ -322,18 +322,18 @@ clear;
 
 L = 0.02;                 % reciever dist
 [freq , Einc]= readfromcsv('0M.csv');
-Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
+%Einc_row = Einc(20,:); % grabbing RANDOM ROW, why so many rows???
 k0 = 2*pi*freq/3e8;     %k = 2pi/wavelength = 2pi/(c/freq) = 2pifreq/c
 m = 1.8;
 %N =((0.01*0.01*0.02)/(pi*R^2)); 
-N = 100;                            % Hardcoded N for this
-Einc = Einc_row; % use lab data
+N = 1000;                            % Hardcoded N for this
+%Einc = Einc_row; % use lab data
 Esca_sum1 = zeros(size(freq)); Esca_sum2 = zeros(size(freq)); Esca_sum3 = zeros(size(freq));
 
 figure;
 hold on;
 
-R1 = 5e-6;
+R1 = 4e-6;
 x1 = k0*R1;
 S_1 = S1(0,m,x1); 
 
