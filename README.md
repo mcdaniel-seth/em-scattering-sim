@@ -35,15 +35,15 @@ The simulation comnpares:
 
 ## Supporting Files
 
-   - readfromcsv.m  (grabs the middle row from whichever csv file you input)
+   - `readfromcsv.m`  (grabs the middle row from whichever csv file you input)
 
-   -  S1.m            (Implements S1 eqn from [1])
-      -   pin.m        (Implements pin eqn from [1])
-      -   taun.m       (Implements taun eqn from [1])
-      -   mieCoeff.m    (Implements mieCoeff eqn from [2])
-          -    riccatiBessel.m  (Implements Riccati Bessel Function)
+   -  `S1.m`            (Implements S1 eqn from [1])
+      -   `pin.m`        (Implements pin eqn from [1])
+      -   `taun.m`       (Implements taun eqn from [1])
+      -   `mieCoeff.m`    (Implements mieCoeff eqn from [2])
+          -    `riccatiBessel.m`  (Implements Riccati Bessel Function)
 
-  -  ForwardScatteringEnergy.m  (Overhead function that caluclates Fwd Scatter)
+  -  `ForwardScatteringEnergy.m`  (Overhead function that caluclates Fwd Scatter)
 
 ## Sources
 
