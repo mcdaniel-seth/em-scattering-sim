@@ -24,13 +24,13 @@ The simulation comnpares:
       
 ## Simulation Files
 
-  ScatteringSimulation.m
+  -`ScatteringSimulation.m`
      Main testing simulation file
 
-  app1.mlapp
+  -`app1.mlapp`
      Simple app with gui for ease of use
 
-  ForwardScatteringEnergyTest.m
+  -`ForwardScatteringEnergyTest.m`
      This is the file I used weekly to show my progress, section by section
 
 ## Supporting Files
