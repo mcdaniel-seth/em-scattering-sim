@@ -2,8 +2,8 @@
 
 
 ## Overview 
-Written By: Seth McDaniel
-email seth.mcdanie@gmail.com with any questions
+- Written By: Seth McDaniel
+- email seth.mcdanie@gmail.com with any questions
 
 This project is a MatLab Simulation of **Forward Scattering Energy**
 
